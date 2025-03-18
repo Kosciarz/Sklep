@@ -1,0 +1,35 @@
+CREATE TABLE kategorie (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    nazwa TEXT NOT NULL,
+    polozenie TEXT
+);
+
+CREATE TABLE ksiazki (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    tytul TEXT NOT NULL,
+    autor TEXT NOT NULL,
+    kategoria_id INT(11),
+    FOREIGN KEY (kategoria_id) REFERENCES kategorie(id)
+);
+
+INSERT INTO kategorie (nazwa) VALUES
+('horror'),
+('obyczajowe'),
+('dla dzieci'),
+('fantazy');
+
+INSERT INTO ksiazki (tytul, autor, kategoria_id) VALUES
+('Misery', 'S. King', 1),
+('Zaczarowany ogród', 'Frances Hodgson Burnett', 2),
+('Martwy w rodzinie', 'R. Harris', 3),
+('Przykładowy', 'R. Harris', 3),
+('abc', 'Marek', 4),
+('Król Artur', 'Gienek P', 2),
+('Król Artur', 'Marek', 4),
+('Lepszy świat', 'M. K. Caffe', 3);
+
+CREATE TABLE users(
+    ID int(11) PRIMARY KEY AUTO_INCREMENT,
+    username text,
+    password text
+);
