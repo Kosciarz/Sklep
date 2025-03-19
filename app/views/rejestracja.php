@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once __DIR__ . '/../core/Database.php';
 require_once __DIR__ . '/../controllers/UserController.php';
 
@@ -13,6 +15,7 @@ if ($controller->logged_in()) {
 
 if (isset($_POST['create'])) {
     $controller->register();
+    exit();
 }
 
 ?>

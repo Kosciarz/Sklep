@@ -16,11 +16,11 @@ if ($controller->logged_in()) {
 if (isset($_POST['login'])) {
     $controller->log_in();
 } elseif (isset($_POST['create'])) {
-    $controller->create();
+    header('Location: rejestracja.php');
+    exit();
 }
 
 ?>
-
 
 <!doctype html>
 <html lang="pl">
@@ -36,14 +36,14 @@ if (isset($_POST['login'])) {
 
 <main>
 
-    <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST">
+    <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">
 
-        <div class="">
+        <div>
             <label for="name">Podaj imię:</label>
             <input type="text" name="username" id="name">
         </div>
 
-        <div class="">
+        <div>
             <label for="password">Podaj hasło:</label>
             <input type="password" name="password" id="password">
         </div>
@@ -53,8 +53,8 @@ if (isset($_POST['login'])) {
         <input type="submit" name="create" value="Utwórz konto">
     </form>
 
-    <?php if (isset($error)): ?>
-        <p style="color: red;"><?php echo $error ?></p>
+    <?php if (isset($_SESSION['error'])): ?>
+        <p style="color: red;"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></p>
     <?php endif; ?>
 
 </main>

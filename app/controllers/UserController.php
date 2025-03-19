@@ -23,7 +23,7 @@ class UserController extends Controller
             $userModel = $this->model('UserModel');
 
             if (!$userModel->userExists($_POST['username'])) {
-                $error = "UserModel not found!";
+                $error = "User not found!";
             } else {
                 if ($userModel->checkPassword($_POST['username'], $_POST['password'])) {
                     $_SESSION['logged_in'] = true;
@@ -36,8 +36,8 @@ class UserController extends Controller
             }
         }
 
-        require_once __DIR__ . '/../views/logowanie.php';
-//        $this->view('logowanie', ['error' => $error]);
+        $_SESSION['error'] = $error;
+        $this->view('logowanie', ['error' => $error]);
     }
 
     public function register(): void
@@ -65,7 +65,7 @@ class UserController extends Controller
             }
         }
 
-        require_once __DIR__ . '/../views/rejestracja.php';
-//        $this->view('rejestracja', ['error' => $error]);
+        $_SESSION['error'] = $error;
+        $this->view('rejestracja', ['error' => $error]);
     }
 }
