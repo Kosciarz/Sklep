@@ -13,8 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['wyczyść'])) {
     exit();
 }
 
+$page_css = "koszyk.css";
+include 'layout/header.php';
 ?>
-
 
 <!doctype html>
 <html lang="pl">
@@ -59,5 +60,4 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['wyczyść'])) {
     </div>
 </main>
 
-</body>
-</html>
+<?php include_once 'layout/footer.php'; ?>
