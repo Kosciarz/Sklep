@@ -4,12 +4,9 @@ require_once __DIR__ . '/../core/Controller.php';
 
 class UserController extends Controller
 {
-    public function logged_in(): void
+    public function logged_in(): bool
     {
-        if (!empty($_SESSION['logged_in'])) {
-            header('Location: ../views/panel.php');
-            exit();
-        }
+        return !empty($_SESSION['logged_in']);
     }
 
     public function create(): void

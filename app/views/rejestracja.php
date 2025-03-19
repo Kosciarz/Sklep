@@ -6,10 +6,13 @@ require_once __DIR__ . '/../controllers/UserController.php';
 $db = Database::getInstance();
 $controller = new UserController($db->getConnection());
 
+if ($controller->logged_in()) {
+    header('Location: panel.php');
+    exit();
+}
+
 if (isset($_POST['create'])) {
     $controller->register();
-} else {
-    $controller->logged_in();
 }
 
 ?>
