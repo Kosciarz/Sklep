@@ -16,7 +16,7 @@ class UserController extends Controller
     {
         header('Location: rejestracja.php');
         exit();
-        }
+    }
 
     public function log_in(): void
     {
