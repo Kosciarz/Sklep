@@ -17,8 +17,8 @@ $page_css = "panel.css";
 include 'layout/header.php';
 ?>
 
-<main>
-    <h1>Odwiedziłeś naszą stronę <?= $_SESSION['counter'] ?> razy</h1>
-</main>
+    <main>
+        <h1>Odwiedziłeś naszą stronę <?= $_SESSION['counter'] ?> razy</h1>
+    </main>
 
 <?php include 'layout/footer.php'; ?>

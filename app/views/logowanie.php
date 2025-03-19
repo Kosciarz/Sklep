@@ -20,46 +20,34 @@ if (isset($_POST['login'])) {
     exit();
 }
 
+$page_css = "logowanie.css";
+include 'layout/header_login.php';
 ?>
 
-<!doctype html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Logowanie</title>
+    <main>
 
-    <link rel="stylesheet" href="/Sklep/app/views/css/global.css">
-    <link rel="stylesheet" href="/Sklep/app/views/css/logowanie.css">
-</head>
-<body>
+        <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">
 
-<main>
+            <div>
+                <label for="name">Podaj imię:</label>
+                <input type="text" name="username" id="name">
+            </div>
 
-    <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">
+            <div>
+                <label for="password">Podaj hasło:</label>
+                <input type="password" name="password" id="password">
+            </div>
 
-        <div>
-            <label for="name">Podaj imię:</label>
-            <input type="text" name="username" id="name">
-        </div>
+            <input type="submit" name="login" value="Zaloguj">
 
-        <div>
-            <label for="password">Podaj hasło:</label>
-            <input type="password" name="password" id="password">
-        </div>
+            <input type="submit" name="create" value="Utwórz konto">
+        </form>
 
-        <input type="submit" name="login" value="Zaloguj">
+        <?php if (isset($_SESSION['error'])): ?>
+            <p style="color: red;"><?php echo $_SESSION['error'];
+                unset($_SESSION['error']); ?></p>
+        <?php endif; ?>
 
-        <input type="submit" name="create" value="Utwórz konto">
-    </form>
+    </main>
 
-    <?php if (isset($_SESSION['error'])): ?>
-        <p style="color: red;"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></p>
-    <?php endif; ?>
-
-</main>
-
-</body>
-</html>
+<?php include 'layout/footer.php'; ?>
