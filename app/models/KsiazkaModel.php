@@ -4,7 +4,7 @@ require_once('../core/Model.php');
 
 class KsiazkaModel extends Model
 {
-    private $db;
+    private mysqli $db;
 
     public function __construct($db)
     {

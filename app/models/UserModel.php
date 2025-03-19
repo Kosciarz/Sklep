@@ -4,13 +4,6 @@ require_once('../core/Model.php');
 
 class UserModel extends Model
 {
-    private $db;
-
-    public function __construct(mysqli $db)
-    {
-        $this->db = $db;
-    }
-
     public function userExists(string $username): bool
     {
         $query = "SELECT * FROM users WHERE username = ?";
