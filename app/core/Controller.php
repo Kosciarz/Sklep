@@ -18,6 +18,6 @@ class Controller
     public function view(string $view, array $data = []): void
     {
         extract($data);
-        require_once('../views/' . $view . '.php');
+        require_once __DIR__ . '/../views/' . $view . '.php';
     }
 }

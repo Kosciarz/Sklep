@@ -1,8 +1,6 @@
 <?php
 
-require_once('../core/Controller.php');
-
-session_start();
+require_once __DIR__ . '/../core/Controller.php';
 
 class UserController extends Controller
 {
@@ -41,7 +39,8 @@ class UserController extends Controller
             }
         }
 
-        $this->view('logowanie', ['error' => $error]);
+        require_once __DIR__ . '/../views/logowanie.php';
+//        $this->view('logowanie', ['error' => $error]);
     }
 
     public function register(): void
@@ -69,6 +68,7 @@ class UserController extends Controller
             }
         }
 
-        $this->view('rejestracja', ['error' => $error]);
+        require_once __DIR__ . '/../views/rejestracja.php';
+//        $this->view('rejestracja', ['error' => $error]);
     }
 }

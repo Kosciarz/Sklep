@@ -1,7 +1,7 @@
 <?php
 
-require_once('../core/Database.php');
-require_once('../controllers/UserController.php');
+require_once __DIR__ . '/../core/Database.php';
+require_once __DIR__ . '/../controllers/UserController.php';
 
 $db = Database::getInstance();
 $controller = new UserController($db->getConnection());

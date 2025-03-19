@@ -1,14 +1,16 @@
 <?php
 
-require_once('../core/Database.php');
-require_once('../controllers/UserController.php');
+require_once __DIR__ . '/../core/Database.php';
+require_once __DIR__ . '/../controllers/UserController.php';
 
 $db = Database::getInstance();
 $controller = new UserController($db->getConnection());
 
-$controller->logged_in();
-
-$controller->register();
+if (isset($_POST['create'])) {
+    $controller->register();
+} else {
+    $controller->logged_in();
+}
 
 ?>
 
