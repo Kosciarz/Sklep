@@ -50,22 +50,28 @@ include 'layout/header.php';
             </div>
 
             <div class="wyniki">
-                <table>
-                    <tr>
-                        <th>Tytuł</th>
-                        <th>Autor</th>
-                        <th>Kategoria</th>
-                    </tr>
-
-                    <?php foreach($_SESSION['books'] as $book): ?>
+                <?php if (!empty($books)): ?>
+                    <table>
+                        <thead>
                         <tr>
-                            <td><?php echo $book[0]; ?></td>
-                            <td><?php echo $book[1]; ?></td>
-                            <td><?php echo $book[2]; ?></td>
+                            <th>Tytuł</th>
+                            <th>Autor</th>
+                            <th>Kategoria</th>
                         </tr>
-                    <?php endforeach; ?>
-
-                </table>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($books as $book): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($book['tytul']) ?></td>
+                                <td><?= htmlspecialchars($book['autor']) ?></td>
+                                <td><?= htmlspecialchars($book['nazwa']) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php else: ?>
+                    <p>Brak wyników.</p>
+                <?php endif; ?>
             </div>
 
         </form>

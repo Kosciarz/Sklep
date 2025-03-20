@@ -9,7 +9,7 @@ class Controller
         $this->db = $db;
     }
 
-    public function model(string $model): Model
+    public function model(string $model)
     {
         require_once('../models/' . $model . '.php');
         return new $model($this->db);

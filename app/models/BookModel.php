@@ -9,19 +9,16 @@ class BookModel extends Model
         $query = "SELECT ksiazki.tytul, ksiazki.autor, kategorie.nazwa
                   FROM ksiazki
                   JOIN kategorie ON ksiazki.kategoria_id = kategorie.ID";
+        $result = $this->db->query($query);
+        if (!$result) {
+            die ("Database error: " . $this->db->error);
+        }
 
-        return $this->db->query($query)->fetch_all();
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function addNewBook($title, $author, $genre): void
     {
-        $genre_query = "INSERT INTO kategorie (nazwa) 
-                        VALUES (?) ON DUPLICATE KEY UPDATE nazwa=nazwa";
-        $genre_stmt = $this->db->prepare($genre_query);
-        $genre_stmt->bind_param("s", $genre);
-        $genre_stmt->execute();
-        $genre_stmt->close();
-
         $check_query = "SELECT id FROM kategorie WHERE nazwa = ?";
         $check_stmt = $this->db->prepare($check_query);
         $check_stmt->bind_param("s", $genre);
