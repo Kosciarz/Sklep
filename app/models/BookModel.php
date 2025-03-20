@@ -18,7 +18,7 @@ class BookModel extends Model
         $genre_query = "INSERT INTO kategorie (nazwa) 
                         VALUES (?) ON DUPLICATE KEY UPDATE nazwa=nazwa";
         $genre_stmt = $this->db->prepare($genre_query);
-        $genre_stmt->bind_param("ss", $genre, $genre);
+        $genre_stmt->bind_param("s", $genre);
         $genre_stmt->execute();
         $genre_stmt->close();
 
