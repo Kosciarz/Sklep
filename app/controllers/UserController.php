@@ -1,71 +1,72 @@
 <?php
 
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once __DIR__ . '/../core/Controller.php';
 
 class UserController extends Controller
 {
-    public function logged_in(): bool
+    public function login(): void
     {
-        return !empty($_SESSION['logged_in']);
-    }
-
-    public function create(): void
-    {
-        header('Location: rejestracja.php');
-        exit();
-    }
-
-    public function log_in(): void
-    {
-        $error = "";
-
-        if (isset($_POST["login"]) && isset($_POST["username"]) && isset($_POST["password"])) {
-            $userModel = $this->model('UserModel');
-
-            if (!$userModel->userExists($_POST['username'])) {
-                $error = "User not found!";
-            } else {
-                if ($userModel->checkPassword($_POST['username'], $_POST['password'])) {
-                    $_SESSION['logged_in'] = true;
-                    $_SESSION['name'] = $_POST['username'];
-                    header('Location: panel.php');
-                    exit();
-                } else {
-                    $error = "Invalid password!";
-                }
-            }
+        if ($_SERVER["REQUEST_METHOD"] != "POST") {
+            return;
         }
 
-        $_SESSION['error'] = $error;
-        $this->view('logowanie', ['error' => $error]);
+        if (empty($_POST["username"]) || empty($_POST["password"])) {
+            $error = "All fields are required";
+            $this->model_->setData('error', $error);
+            return;
+        }
+
+        if (!$this->model_->userExists($_POST['username'])) {
+            $error = "User not found!";
+            $this->model_->setData('error', $error);
+            return;
+        }
+
+        if (!$this->model_->verifyPassword($_POST['username'], $_POST['password'])) {
+            $error = "Invalid password!";
+            $this->model_->setData('error', $error);
+            return;
+        }
+
+        $_SESSION['logged_in'] = true;
+        $_SESSION['name'] = $_POST['username'];
+
+        header('Location: panel.php');
+        exit();
     }
 
     public function register(): void
     {
-        $error = "";
-
-        if ($_SERVER["REQUEST_METHOD"] == "POST"
-            && isset($_POST["create"])
-            && isset($_POST["username"])
-            && isset($_POST["password"])
-            && isset($_POST["password-repeat"])) {
-
-            if ($_POST["password"] !== $_POST["password-repeat"]) {
-                $error = "Passwords did not match!";
-            } else {
-                $userModel = $this->model('UserModel');
-
-                if ($userModel->userExists($_POST["username"])) {
-                    $error = "Username already taken";
-                } else {
-                    $userModel->insertUser($_POST["username"], $_POST["password"]);
-                    header('Location: ../views/logowanie.php');
-                    exit();
-                }
-            }
+        if ($_SERVER["REQUEST_METHOD"] != "POST") {
+            return;
         }
 
-        $_SESSION['error'] = $error;
-        $this->view('rejestracja', ['error' => $error]);
+        if (empty($_POST["username"]) || empty($_POST["password"]) || empty($_POST["password-repeat"])) {
+            $error = "All fields are required";
+            $this->model_->setData('error', $error);
+            return;
+        }
+
+        if ($_POST["password"] != $_POST["password-repeat"]) {
+            $error = "Passwords did not match";
+            $this->model_->setData('error', $error);
+            return;
+        }
+
+        if ($this->model_->userExists($_POST["username"])) {
+            $error = "Username already taken";
+            $this->model_->setData('error', $error);
+            return;
+        }
+
+        $this->model_->insertUser($_POST["username"], $_POST["password"]);
+        $_SESSION['logged_in'] = true;
+        $_SESSION['name'] = $_POST['username'];
+        header('Location: panel.php');
+        exit();
     }
 }

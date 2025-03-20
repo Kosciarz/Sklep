@@ -3,7 +3,7 @@
 session_start();
 
 if (empty($_SESSION['logged_in'])) {
-    header('Location: logowanie.php');
+    header('Location: login_handler.php');
     exit();
 }
 

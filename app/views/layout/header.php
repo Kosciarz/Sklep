@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/Sklep/app/views/css/navbar.css">
     <link rel="stylesheet" href="/Sklep/app/views/css/panel.css">
 
-    <?php if (isset($page_css)): ?>
+    <?php if (!empty($page_css)): ?>
         <link rel="stylesheet" href="/Sklep/app/views/css/<?php echo $page_css; ?>">
     <?php endif; ?>
 </head>
